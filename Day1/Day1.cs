@@ -9,6 +9,8 @@ public class Day1
     private string _inputPath = "Day1/input.txt";
     private List<Rotation> _rotations = [];
     private int _numberOfTimesAtZero;   
+    private bool ispartOne = false;
+    
     
     /// <summary>
     /// Completes the Day 1 challenge.
@@ -58,22 +60,46 @@ public class Day1
     /// <returns></returns>
     private int MovePointer(int movements, string direction)
     {
+        int crossedZero = 0;
         if (direction == "R")
         {
+            bool initialCrossedZero = (_pointer + movements) > 100;
+            if(initialCrossedZero && !ispartOne)
+            {
+                crossedZero = 1;
+            }
+            
             _pointer += movements;
             while (_pointer >= 100)
             {
                 _pointer = _pointer - 100;
+                if (_pointer >= 100 && !ispartOne)
+                {
+                    crossedZero++;
+                }
             }
+            _numberOfTimesAtZero += crossedZero;
         }
 
         if (direction == "L")
         {
+            bool initialCrossedZero = (_pointer - movements) < 0;
+            if(initialCrossedZero && !ispartOne && _pointer != 0)
+            {
+                crossedZero = 1;
+            }
+            
             _pointer -= movements;
+            
             while (_pointer < 0)
             {
                 _pointer = 100 + _pointer;
+                if(_pointer < 0 && !ispartOne)
+                {
+                    crossedZero++;
+                }
             }
+            _numberOfTimesAtZero += crossedZero;
         }
         return _dialPositions[_pointer];
     }
