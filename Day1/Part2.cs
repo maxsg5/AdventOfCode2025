@@ -2,17 +2,18 @@
 
 namespace AdventOfCode2025.Day1;
 
-public class Day1
+public class Part2
 {
-    private int[] _dialPositions = new int[100];
+     private int[] _dialPositions = new int[100];
     private int _pointer = 50;
     private string _inputPath = "Day1/input.txt";
     private List<Rotation> _rotations = [];
     private int _numberOfTimesAtZero;   
+    private bool ispartOne = false;
     
     
     /// <summary>
-    /// Completes the Day 1 challenge.
+    /// Completes the Day 1 part2 challenge.
     /// </summary>
     public void Run()
     {
@@ -42,48 +43,15 @@ public class Day1
     {
         foreach (var rotation in _rotations)
         {
-            int dialPosition = MovePointer(rotation.Steps, rotation.Direction);
-            //PrintDialRotation(rotation, dialPosition);
-            if (dialPosition == 0)
+            for (int i = 0; i < rotation.Steps; i++)
             {
-                _numberOfTimesAtZero++;
+                Click(rotation.Direction);
+                if(_pointer == 0)
+                {
+                    _numberOfTimesAtZero++;
+                }
             }
         }
-    }
-
-    /// <summary>
-    /// Moves the pointer on the dialPositions array based on the direction and number of movements.
-    /// </summary>
-    /// <param name="movements">number of rotations</param>
-    /// <param name="direction">direction of rotation</param>
-    /// <returns></returns>
-    private int MovePointer(int movements, string direction)
-    {
-        int crossedZero = 0;
-        if (direction == "R")
-        {
-            
-            _pointer += movements;
-            while (_pointer >= 100)
-            {
-                _pointer = _pointer - 100;
-            }
-            _numberOfTimesAtZero += crossedZero;
-        }
-
-        if (direction == "L")
-        {
-            bool initialCrossedZero = (_pointer - movements) < 0;
-            
-            _pointer -= movements;
-            
-            while (_pointer < 0)
-            {
-                _pointer = 100 + _pointer;
-            }
-            _numberOfTimesAtZero += crossedZero;
-        }
-        return _dialPositions[_pointer];
     }
     
     /// <summary>
@@ -114,5 +82,35 @@ public class Day1
     private void PrintDialRotation(Rotation rotation, int dialPosition)
     {
         Console.WriteLine($"Dial rotated {rotation.Direction}{rotation.Steps} to point at {dialPosition}");
+    }
+    
+    /// <summary>
+    /// Move the dial pointer one step in the given direction.
+    /// </summary>
+    /// <param name="direction">Direction of rotation</param>
+    private void Click(string direction)
+    {
+        if(direction == "R")
+        {
+            if (_pointer == 99)
+            {
+                _pointer = 0;
+            }
+            else
+            {
+                _pointer++;
+            }
+        }
+        else if(direction == "L")
+        {
+            if (_pointer == 0)
+            {
+                _pointer = 99;
+            }
+            else
+            {
+                _pointer--;
+            }
+        }
     }
 }
