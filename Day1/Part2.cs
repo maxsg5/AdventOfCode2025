@@ -21,7 +21,7 @@ public class Part2
         AllocateRotations(_inputPath);
         
         PerformRotations();
-        Console.WriteLine($"Dial has pointed to zero {_numberOfTimesAtZero} times.");
+        Console.WriteLine($"Answer to day1 part2: {_numberOfTimesAtZero}");
     }
 
     /// <summary>

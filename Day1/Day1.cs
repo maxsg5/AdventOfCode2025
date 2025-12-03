@@ -20,7 +20,7 @@ public class Day1
         AllocateRotations(_inputPath);
         
         PerformRotations();
-        Console.WriteLine($"Dial has pointed to zero {_numberOfTimesAtZero} times.");
+        Console.WriteLine($"Answer to day1 part1: {_numberOfTimesAtZero}");
     }
 
     /// <summary>
