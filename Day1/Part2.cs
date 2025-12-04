@@ -9,8 +9,6 @@ public class Part2
     private string _inputPath = "Day1/input.txt";
     private List<Rotation> _rotations = [];
     private int _numberOfTimesAtZero;   
-    private bool ispartOne = false;
-    
     
     /// <summary>
     /// Completes the Day 1 part2 challenge.
